@@ -1,0 +1,12 @@
+node_modules
+
+mongodb/data/*
+mongodb/log/*
+!mongodb/data/.gitkeep
+!mongodb/log/.gitkeep
+
+app/public/css/*
+!app/public/css/.gitkeep
+
+.env*
+!.env.sample

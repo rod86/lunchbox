@@ -1,0 +1,8 @@
+{
+    "verbose": true,
+    "roots": ["tests"],
+    "testPathIgnorePatterns": [
+        "<rootDir>/tests/config/"
+    ],
+    "globalSetup": "<rootDir>/tests/config/setup.js"
+}
