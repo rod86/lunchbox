@@ -1,0 +1,8 @@
+// Links
+a {
+    @include transition(color $transition-delay $transition-transition);
+
+    &.btn {
+        @include transition($btn-transition);
+    }
+}

@@ -1,0 +1,51 @@
+
+// Config
+$font-path: './fonts';
+$images-path: './images';
+
+// Base
+$base-color: #ed3908;
+$font-family-base: 'Lato', sans-serif;
+
+// animation
+$transition-transition: ease-in-out;
+$transition-delay: .3s;
+
+// Font awesome
+$fa-font-path: '#{$font-path}/fa';
+
+// Footer
+$footer-background-color: #333333;
+$footer-text-color: #bbbbbb;
+
+// Homepage
+$home-page-hero-md-height: 600px;
+$home-page-hero-xs-height: 450px;
+$home-page-hero-overlay-background-color: rgba(0,0,0,0.5);
+
+/*** BOOTSTRAP ***/
+
+// Theme
+$theme-colors: (
+    "primary": $base-color
+);
+
+// transitions
+$transition-base: all $transition-delay $transition-transition;
+
+// Body
+$body-color: #444444;
+
+// Headings
+$headings-font-family: 'Signika', sans-serif;
+$headings-color: $base-color;
+$headings-margin-bottom: 0.5em;
+
+// links
+$link-hover-color: lighten($base-color, 20%);
+
+// Forms
+$input-placeholder-color: #ced4da; //$gray-400
+
+// Navs
+$navbar-dark-color: #ffffff;

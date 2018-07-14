@@ -1,0 +1,21 @@
+main {
+    margin: 1.5em 0 2.5em 0;
+}
+
+footer {
+    color: $footer-text-color;
+    background-color: darken($footer-background-color, 5%);
+    text-align: center;
+    padding: 1.2em 0;
+}
+
+.footer-bottom {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+
+    & > main {
+        flex: 1;
+        width: 100%;
+    }
+}

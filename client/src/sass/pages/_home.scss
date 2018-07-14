@@ -1,0 +1,89 @@
+
+#homepage {
+    main {
+        margin-top: 0;
+    }
+
+    #hero-image {
+        width: 100%;
+        min-height: $home-page-hero-xs-height;
+        background-image: url('#{$images-path}/burrito.jpeg');
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: cover;
+        background-attachment: fixed;
+        position: relative;
+        padding-bottom: 8em;
+        padding-top: 8em;
+
+        .overlay {
+            background-color: $home-page-hero-overlay-background-color;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            min-height: $home-page-hero-xs-height;
+        }
+        .hero-text h1 {
+            font-size: 2.25em;
+        }
+    }
+
+    #icon-boxes {
+        margin: 3em 0;
+
+        .row > div {
+            margin-bottom: 2em;
+
+            &:last-child {
+                margin-bottom: 0;
+            }
+        }
+
+        i {
+            margin-bottom: .4em;
+        }
+        p {
+            margin-bottom: 0;
+        }
+    }
+
+    #join-stand {
+        margin: 1.5em 0;
+
+        .text {
+            text-align: center;
+            margin-bottom: 1.5em;
+        }
+        .image {
+            text-align: center;
+        }
+    }
+
+    @include media-breakpoint-up(md) {
+        #hero-image {
+            min-height: $home-page-hero-md-height;
+            padding-bottom: 12em;
+            padding-top: 12em;
+
+            .overlay {
+                min-height: $home-page-hero-md-height;
+            }
+            .hero-text h1 {
+                font-size: 3.5em;
+            }
+        }
+        #icon-boxes .row > div {
+            margin-bottom: 0;
+        }
+        #join-stand {
+            .text {
+                margin-bottom: 0;
+                text-align: left;
+            }
+            .image {
+                text-align: right;
+            }
+        }
+    }
+}

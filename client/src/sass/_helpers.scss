@@ -1,0 +1,29 @@
+// Input group with icon inside field
+.input-group.input-icon {
+    border: 1px solid $border-color;
+    border-radius: $border-radius;
+
+    i.fas {
+        color: $gray-400;
+        font-size: 1em;
+        padding: 10px 0 10px 10px;
+        width: 25px;
+    }
+    input {
+        border: none;
+        background-color: transparent;
+
+        &:focus {
+            box-shadow: none;
+        }
+    }
+
+    &.input-group-lg {
+        border-radius: $border-radius-lg;
+
+        i.fas {
+            font-size: 1.5em;
+            width: 30px;
+        }
+    }
+}

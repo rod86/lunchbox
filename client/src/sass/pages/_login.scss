@@ -1,0 +1,41 @@
+// login page
+
+#login-page > main {
+    margin: 0;
+    min-height: 100%;
+    background-image: url('#{$images-path}/login-bg.jpg');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    background-attachment: fixed;
+    position: relative;
+
+    & > .overlay {
+        background-color: $home-page-hero-overlay-background-color;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        min-height: 100%;
+    }
+
+    & > .container {
+        & > .content-center {
+            margin-top: 2rem;
+        }
+    }
+
+    @include media-breakpoint-up(md) {
+        & > .container {
+            display: flex;
+            height: 80vh;
+            align-items: center;
+            justify-content: center;
+
+            & > .content-center {
+                width: 50%;
+                margin-top: 0;
+            }
+        }
+    }
+}

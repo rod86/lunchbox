@@ -1,0 +1,21 @@
+
+// Setup
+@import "_variables";
+@import "_fonts";
+
+// Vendors
+@import 'node_modules/bootstrap/scss/bootstrap';
+@import 'vendors/font-awesome/fontawesome';
+@import 'vendors/font-awesome/fa-solid';
+@import 'vendors/font-awesome/fa-brands';
+
+// Generic
+@import "_global";
+@import "_helpers";
+@import "_layout";
+
+// Components
+
+// Pages
+@import "pages/_home";
+@import "pages/_login";
