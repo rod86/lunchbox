@@ -4,10 +4,16 @@ import { connect } from 'react-redux';
 import { withRouter, Link } from 'react-router-dom';
 import { createUser } from '../../actions/profileActions';
 import { clearErrors } from '../../actions/errorActions';
-import { Form, FormGroup, Label, Input, Button, FormFeedback } from 'reactstrap';
+import { Form, FormGroup, Label, Input, Button, FormFeedback, Card, CardBody, CardFooter } from 'reactstrap';
 import LoginLayout from '../Layout/LoginLayout';
 
 class Signup extends Component {
+
+    static propTypes = {
+        createUser: PropTypes.func.isRequired,
+        clearErrors: PropTypes.func.isRequired,
+        error: PropTypes.object.isRequired
+    };
 
     constructor(props) {
         super(props);
@@ -57,8 +63,8 @@ class Signup extends Component {
 
         return (
             <LoginLayout>
-                <div className="card">
-                    <div className="card-body">
+                <Card>
+                    <CardBody>
                         <h1 className="card-title text-center">Sign Up</h1>
 
                         <Form onSubmit={this.onSubmit}>
@@ -87,21 +93,15 @@ class Signup extends Component {
                                 <Button color="primary" size="lg" block>Sign Up</Button>
                             </div>
                         </Form>
-                    </div>
-                    <div className="card-footer text-center bg-transparent border-0">
+                    </CardBody>
+                    <CardFooter className="text-center bg-transparent border-0">
                         <p>Have an account? <Link to="/login">Login</Link></p>
-                    </div>
-                </div>
+                    </CardFooter>
+                </Card>
             </LoginLayout>       
         )
     }
 }
-
-Signup.propTypes = {
-    createUser: PropTypes.func.isRequired,
-    clearErrors: PropTypes.func.isRequired,
-    error: PropTypes.object.isRequired
-};
 
 const mapStateToProps = state => ({
     error: state.error

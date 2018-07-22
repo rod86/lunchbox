@@ -7,8 +7,10 @@ import { setCurrentUser, logoutUser } from './actions/profileActions';
 
 import NotFound from './Components/Pages/NotFound';
 import Home from './Components/Pages/Home';
+import About from './Components/Pages/About';
 import SignUp from './Components/Auth/Signup';
 import Login from './Components/Auth/Login';
+import Logout from './Components/Auth/Logout';
 import Dashboard from './Components/Dashboard/Dashboard';
 import PrivateRoute from './Components/Global/PrivateRoute';
 
@@ -23,7 +25,7 @@ if (localStorage.access_token) {
     const currentTime = Date.now() / 1000;
     if (user.exp < currentTime) {
         store.dispatch(logoutUser());
-        window.location.href = '/signup';
+        window.location.href = '/login';
     }
 }
 
@@ -34,8 +36,10 @@ class App extends Component {
                 <Router>
                     <Switch>
                         <Route exact path="/" component={Home} />
-                        <Route path="/signup" component={SignUp} />
-                        <Route path="/login" component={Login} />
+                        <Route exact path="/about" component={About} />
+                        <Route exact path="/signup" component={SignUp} />
+                        <Route exact path="/login" component={Login} />
+                        <Route exact path="/logout" component={Logout} />
                         <PrivateRoute path="/dashboard" component={Dashboard} />
                         <Route component={NotFound} />
                     </Switch>    

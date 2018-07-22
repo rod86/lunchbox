@@ -1,14 +1,19 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { Form, FormGroup, Input, Button, InputGroup, Alert } from 'reactstrap';
+import { Form, FormGroup, Input, Button, InputGroup, Alert, Card, CardBody, CardFooter } from 'reactstrap';
 import { loginUser } from '../../actions/profileActions';
-import { withRouter } from 'react-router-dom';
 
 import LoginLayout from '../Layout/LoginLayout';
 
 class Login extends Component {
+
+    static propTypes = {
+        loginUser: PropTypes.func.isRequired,
+        error: PropTypes.object.isRequired,
+        auth: PropTypes.object.isRequired
+    };
 
     constructor(props) {
         super(props);
@@ -56,8 +61,8 @@ class Login extends Component {
 
         return (
             <LoginLayout>
-                <div className="card">
-                    <div className="card-body">
+                <Card>
+                    <CardBody>
                         <h1 className="card-title text-center">Login</h1>
                         
                         {error.description?(
@@ -79,21 +84,15 @@ class Login extends Component {
                             </FormGroup>
                             <Button color="primary" size="lg" block>Log In</Button>
                         </Form>
-                    </div>
-                    <div className="card-footer text-center bg-transparent border-0">
+                    </CardBody>
+                    <CardFooter className="text-center bg-transparent border-0">
                         <p>Don't have an account? <Link to="/signup">Sign Up</Link></p>
-                    </div>
-                </div>
+                    </CardFooter>
+                </Card>
             </LoginLayout>    
         );
     }
 }
-
-Login.propTypes = {
-    loginUser: PropTypes.func.isRequired,
-    error: PropTypes.object.isRequired,
-    auth: PropTypes.object.isRequired
-};
 
 const mapStateToProps = state => ({
     error: state.error,

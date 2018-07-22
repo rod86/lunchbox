@@ -2,6 +2,11 @@ main {
     margin: 1.5em 0 2.5em 0;
 }
 
+header .navbar-dark .navbar-nav > li > .nav-link.active {
+    color:rgba(255,255,255,0.75);
+} 
+
+
 footer {
     color: $footer-text-color;
     background-color: darken($footer-background-color, 5%);
@@ -14,8 +19,18 @@ footer {
     min-height: 100vh;
     flex-direction: column;
 
-    & > main {
+    & > .main-content {
         flex: 1;
         width: 100%;
+    }
+}
+
+@include media-breakpoint-up(md) {
+    header {
+        height: $header-height;
+    }
+
+    footer {
+        height: $footer-height;
     }
 }

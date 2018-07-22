@@ -15,7 +15,9 @@
 @import "_layout";
 
 // Components
+@import "components/_offcanvas";
 
 // Pages
 @import "pages/_home";
 @import "pages/_login";
+@import "pages/_admin";

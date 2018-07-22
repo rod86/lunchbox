@@ -1,0 +1,69 @@
+.offcanvas {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: -500px;
+    width: 100%;
+    overflow-y: auto;
+    visibility: hidden;
+    transition-timing-function: ease-in-out;
+    transition-duration: 1s;
+    transition-property: left, visibility;
+    z-index: 1;
+    background-color: $gray-800;
+    padding: 1em 0;
+    color: #ffffff;
+
+    &.open {
+        left: 0;
+        visibility: visible;
+    }
+
+    & > .offcanvas-close {
+        color: #ffffff;
+        margin-bottom: .5rem;
+        padding-right: 1.5rem;
+        text-align: right;
+    }
+
+    ul.nav li {
+        a {
+            color: darken(#ffffff, 15);
+            padding: .7rem 2rem;
+
+            i {
+                margin-right: .8rem;
+            }
+        }
+
+        & a.active,
+        & a:hover {
+            color: #ffffff;
+            background-color: darken($gray-800, 5);
+        }
+    }
+
+    @include media-breakpoint-up(md) {
+        display: none;
+
+        &.sidebar-column {
+            display: block;
+            left: 0;
+            top: $header-height;
+            bottom: $footer-height;
+            visibility: visible;
+            transition: initial;
+            @include make-col(3);
+
+            & > .offcanvas-close {
+                display: none;
+            }
+        }
+    }
+
+    @include media-breakpoint-up(lg) {
+        &.sidebar-column {
+            @include make-col(2);
+        }
+    }
+}
