@@ -19,7 +19,7 @@ const SidebarNav = ({ isAuthenticated }) => {
             {isAuthenticated ? (
                 <Fragment>
                     <NavItem>
-                        <NavLink to="/useradmin" className="nav-link" activeClassName="active">My Profile</NavLink>
+                        <NavLink to="/panel" className="nav-link" activeClassName="active">My Panel</NavLink>
                     </NavItem>   
                     <NavItem>
                         <NavLink to="/logout" className="nav-link" activeClassName="active">Logout</NavLink>

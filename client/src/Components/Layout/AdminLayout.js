@@ -7,7 +7,7 @@ import Header from './Components/Header';
 import Footer from './Components/Footer';
 import Offcanvas from './Components/Offcanvas';
 import AccountInfo from './Components/AccountInfo';
-import UseradminNav from './Nav/UseradminNav';
+import PanelNav from './Nav/PanelNav';
 
 class AdminLayout extends Component {
 
@@ -35,7 +35,7 @@ class AdminLayout extends Component {
                 <Container fluid className="main-content">
                     <Row noGutters>
                         <Offcanvas isOpen={this.state.isOffcanvasOpen} onToggleOffcanvas={this.toggleOffcanvas} isSidebarColumn>
-                            <UseradminNav />
+                            <PanelNav />
                         </Offcanvas>
                         
                         <main className="col-md-9 col-lg-10 offset-md-3 offset-lg-2">

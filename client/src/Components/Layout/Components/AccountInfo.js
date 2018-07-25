@@ -11,7 +11,7 @@ const AccountInfo = ({ username }) => {
                     {username}
                 </DropdownToggle>
                 <DropdownMenu>
-                    <Link to="/useradmin" className="dropdown-item">
+                    <Link to="/panel" className="dropdown-item">
                         My Panel
                     </Link>  
                     <Link to="/logout" className="dropdown-item">

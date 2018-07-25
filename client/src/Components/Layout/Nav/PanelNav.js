@@ -6,22 +6,17 @@ export default () => {
     return (
         <Nav vertical>
             <NavItem>
-                <NavLink exact to="/" className="nav-link">
-                    <i className="fas fa-home"></i> Home
-                </NavLink>
-            </NavItem> 
-            <NavItem>
-                <NavLink exact to="/useradmin" className="nav-link">
+                <NavLink exact to="/panel" className="nav-link">
                     <i className="fas fa-tachometer-alt"></i> Dashboard
                 </NavLink>
             </NavItem> 
             <NavItem>
-                <NavLink to="/useradmin/stands" className="nav-link">
+                <NavLink to="/panel/stands" className="nav-link">
                     <i className="fas fa-map-marker"></i> Stands
                 </NavLink>
             </NavItem> 
             <NavItem>
-                <NavLink to="/useradmin/profile" className="nav-link">
+                <NavLink to="/panel/profile" className="nav-link">
                     <i className="fas fa-user"></i> My Profile
                 </NavLink>
             </NavItem>   
