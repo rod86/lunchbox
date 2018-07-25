@@ -11,7 +11,7 @@ import About from './Components/Pages/About';
 import SignUp from './Components/Auth/Signup';
 import Login from './Components/Auth/Login';
 import Logout from './Components/Auth/Logout';
-import Dashboard from './Components/Dashboard/Dashboard';
+import Dashboard from './Components/Useradmin/Dashboard/Dashboard';
 import PrivateRoute from './Components/Global/PrivateRoute';
 
 import './main.css';
@@ -40,7 +40,7 @@ class App extends Component {
                         <Route exact path="/signup" component={SignUp} />
                         <Route exact path="/login" component={Login} />
                         <Route exact path="/logout" component={Logout} />
-                        <PrivateRoute path="/dashboard" component={Dashboard} />
+                        <PrivateRoute exact path="/useradmin" component={Dashboard} />
                         <Route component={NotFound} />
                     </Switch>    
                 </Router>  
