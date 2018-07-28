@@ -1,0 +1,16 @@
+.card.tile {
+    margin-bottom: 1.5rem;
+    -webkit-box-shadow: 3px 3px 5px $gray-300;
+    -moz-box-shadow: 3px 3px 5px $gray-300;
+    box-shadow: 3px 3px 3px $gray-300;
+    border-color: $gray-300;
+
+    & .card-header {
+        background-color: transparent;
+        border: none;
+
+        & h2 {
+            margin-bottom: 0;
+        } 
+    }
+}

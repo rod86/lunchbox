@@ -1,8 +1,21 @@
 
 #admin-page {
+    & > header,
+    & > footer {
+        position: fixed;
+        width: 100%;
+        z-index: 1;
+    }
+
+    & > footer {
+        bottom: 0;
+    }
+
     .main-content {
+        background-color: $gray-100;
+
         main {
-            padding: 0 15px;
+            padding: $header-height 1em $footer-height 1em;
             z-index: 0;
         }
     }

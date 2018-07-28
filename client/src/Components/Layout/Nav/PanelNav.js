@@ -22,7 +22,7 @@ export default () => {
             </NavItem>   
             <NavItem>
                 <NavLink to="/logout" className="nav-link">
-                    <i className="fas fa-sign-out-alt"></i> Logout
+                    <i className="fas fa-power-off"></i> Logout
                 </NavLink>
             </NavItem>
         </Nav>

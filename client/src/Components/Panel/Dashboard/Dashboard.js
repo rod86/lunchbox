@@ -10,8 +10,8 @@ const Dashboard = () => (
                 <h1>Dashboard</h1>
 
                 <Row>
-                    <IconBox title="Stands" icon="fa-map-marker" color="success" url="/useradmin/stands" />
-                    <IconBox title="My Profile" icon="fa-user" color="info" url="/useradmin/profile" />
+                    <IconBox title="Stands" icon="fa-map-marker" color="success" url="/panel/stands" />
+                    <IconBox title="My Profile" icon="fa-user" color="info" url="/panel/profile" />
                 </Row> 
             </Col> 
         </Row> 

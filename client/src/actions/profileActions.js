@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { GET_ERRORS, SET_CURRENT_USER, CLEAR_ERRORS } from './types';
+import { GET_ERRORS, SET_CURRENT_USER, CLEAR_ERRORS, GET_PROFILE } from './types';
 import jwt_decode from 'jwt-decode';
 
 export const createUser = (user, history) => dispatch => {
@@ -29,3 +29,9 @@ export const setCurrentUser = user => ({
     type: SET_CURRENT_USER,
     payload: user
 });
+
+export const getCurrentProfile = () => dispatch => {
+    axios.get('/api/profile')
+        .then(res => dispatch({ type: GET_PROFILE, payload: res.data }))
+        .catch(() => dispatch({ type: GET_PROFILE, payload: {} }));
+};

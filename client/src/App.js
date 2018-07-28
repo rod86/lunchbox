@@ -5,20 +5,32 @@ import store from './store';
 import jwt_decode from 'jwt-decode';
 import { setCurrentUser, logoutUser } from './actions/profileActions';
 
-import NotFound from './Components/Pages/NotFound';
-import Home from './Components/Pages/Home';
-import About from './Components/Pages/About';
-import SignUp from './Components/Auth/Signup';
-import Login from './Components/Auth/Login';
-import Logout from './Components/Auth/Logout';
-import Dashboard from './Components/Panel/Dashboard/Dashboard';
-import PrivateRoute from './Components/Global/PrivateRoute';
+import PrivateRoute from './components/Global/PrivateRoute';
+import NotFound from './components/Pages/NotFound';
+import Home from './components/Pages/Home';
+import About from './components/Pages/About';
+import SignUp from './components/Auth/Signup';
+import Login from './components/Auth/Login';
+import Logout from './components/Auth/Logout';
+import Dashboard from './components/Panel/Dashboard/Dashboard';
+import Profile from './components/Panel/Profile/Profile';
 
 import './main.css';
+
+// TODO move to own file
+import axios from 'axios';
+const setAuthToken = token => {
+    if (token) {
+        axios.defaults.headers.common['Authorization'] = 'Bearer ' + token;
+    } else {
+        delete axios.defaults.headers.common['Authorization'];
+    }
+};
 
 
 // check token
 if (localStorage.access_token) {
+    setAuthToken(localStorage.access_token);
     const user = jwt_decode(localStorage.access_token);
     store.dispatch(setCurrentUser(user));
 
@@ -41,6 +53,7 @@ class App extends Component {
                         <Route exact path="/login" component={Login} />
                         <Route exact path="/logout" component={Logout} />
                         <PrivateRoute exact path="/panel" component={Dashboard} />
+                        <PrivateRoute path="/panel/profile" component={Profile} />
                         <Route component={NotFound} />
                     </Switch>    
                 </Router>  
