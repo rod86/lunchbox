@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { Container, Row, Col } from 'reactstrap';
 import Layout from '../Layout/Layout';
 
-import joinImage from '../../images/food-truck.jpg';
+import joinImage from '../../assets/images/food-truck.jpg';
 
 const Home = () => {
     return (

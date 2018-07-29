@@ -20,8 +20,8 @@
         "redux-thunk": "^2.3.0"
     },
     "scripts": {
-        "css:build": "node-sass-chokidar --source-map true --output-style compressed src/sass/main.scss > src/main.css",
-        "css:watch": "npm run css:build && node-sass-chokidar src/sass/main.scss > src/main.css --watch --recursive --output-style compressed",
+        "css:build": "node-sass-chokidar --source-map true --output-style compressed src/assets/css/sass/main.scss > src/assets/css/main.css",
+        "css:watch": "npm run css:build && node-sass-chokidar src/assets/css/sass/main.scss > src/assets/css/main.css --watch --recursive --output-style compressed",
         "start": "react-scripts start",
         "build": "react-scripts build",
         "test": "react-scripts test --env=jsdom",

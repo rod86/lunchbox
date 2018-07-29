@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { Container, Navbar, NavbarToggler } from 'reactstrap';
 
-import logo from '../../../images/logo.png';
+import logo from '../../../assets/images/logo.png';
 
 class Header extends Component {
     

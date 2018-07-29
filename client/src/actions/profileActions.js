@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { GET_ERRORS, SET_CURRENT_USER, CLEAR_ERRORS, GET_PROFILE } from './types';
-import jwt_decode from 'jwt-decode';
+import { storeToken, decodeToken } from '../libs/Token';
 
 export const createUser = (user, history) => dispatch => {
     axios.post('/api/profile', user)
@@ -13,8 +13,8 @@ export const loginUser = (user) => dispatch => {
         .then(res => {
             dispatch({ type: CLEAR_ERRORS });
             const { token } = res.data;
-            localStorage.setItem('access_token', token);
-            const user = jwt_decode(token);
+            storeToken(token);
+            const user = decodeToken(token);
             dispatch(setCurrentUser(user));
         })
         .catch(err => dispatch({ type: GET_ERRORS, payload: { description: 'Invalid username and/or password' } }));

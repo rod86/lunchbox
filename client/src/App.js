@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import store from './store';
-import jwt_decode from 'jwt-decode';
 import { setCurrentUser, logoutUser } from './actions/profileActions';
+import { decodeToken, getTokenFromStorage, setAuthToken, isExpiredToken } from './libs/Token';
 
 import PrivateRoute from './components/Global/PrivateRoute';
 import NotFound from './components/Pages/NotFound';
@@ -15,27 +15,16 @@ import Logout from './components/Auth/Logout';
 import Dashboard from './components/Panel/Dashboard/Dashboard';
 import Profile from './components/Panel/Profile/Profile';
 
-import './main.css';
-
-// TODO move to own file
-import axios from 'axios';
-const setAuthToken = token => {
-    if (token) {
-        axios.defaults.headers.common['Authorization'] = 'Bearer ' + token;
-    } else {
-        delete axios.defaults.headers.common['Authorization'];
-    }
-};
-
+import './assets/css/main.css';
 
 // check token
-if (localStorage.access_token) {
-    setAuthToken(localStorage.access_token);
-    const user = jwt_decode(localStorage.access_token);
+const token = getTokenFromStorage();
+if (token) {
+    const user = decodeToken(token);
     store.dispatch(setCurrentUser(user));
+    setAuthToken(token);
 
-    const currentTime = Date.now() / 1000;
-    if (user.exp < currentTime) {
+    if (isExpiredToken(token)) {
         store.dispatch(logoutUser());
         window.location.href = '/login';
     }
