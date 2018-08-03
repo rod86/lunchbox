@@ -1,6 +1,6 @@
 import React from 'react';
 import { Row, Col } from 'reactstrap';
-import AdminLayout from '../../Layout/AdminLayout';
+import AdminLayout from '../Layout/AdminLayout';
 import IconBox from './IconBox';
 
 const Dashboard = () => (

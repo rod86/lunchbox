@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { GET_ERRORS, SET_CURRENT_USER, CLEAR_ERRORS, GET_PROFILE } from './types';
-import { storeToken, decodeToken } from '../libs/Token';
+import { storeToken, decodeToken, removeTokenFromStorage } from '../libs/Token';
+import { success } from 'react-notification-system-redux';
 
 export const createUser = (user, history) => dispatch => {
     axios.post('/api/profile', user)
@@ -17,11 +18,11 @@ export const loginUser = (user) => dispatch => {
             const user = decodeToken(token);
             dispatch(setCurrentUser(user));
         })
-        .catch(err => dispatch({ type: GET_ERRORS, payload: { description: 'Invalid username and/or password' } }));
+        .catch(() => dispatch({ type: GET_ERRORS, payload: { description: 'Invalid username and/or password' } }));
 };
 
 export const logoutUser = () => dispatch => {
-    localStorage.removeItem('access_token');
+    removeTokenFromStorage();
     dispatch(setCurrentUser({}));
 };
 
@@ -34,4 +35,29 @@ export const getCurrentProfile = () => dispatch => {
     axios.get('/api/profile')
         .then(res => dispatch({ type: GET_PROFILE, payload: res.data }))
         .catch(() => dispatch({ type: GET_PROFILE, payload: {} }));
+};
+
+export const updatePassword = data => dispatch => {
+    axios.put('/api/profile/password', data)
+        .then(() => {
+            dispatch({ type: CLEAR_ERRORS });
+            dispatch(success({
+                message: 'Your password has been changed.',
+                autoDismiss: 5,
+                position: 'tr'
+            }));
+        })
+        .catch(err => {
+            dispatch({ type: GET_ERRORS, payload: { errors: err.response.data.errors } });
+        });
+};
+
+export const deleteProfile = history => dispatch => {
+    axios.delete('/api/profile')
+        .then(() => {
+            removeTokenFromStorage();
+            dispatch(setCurrentUser({}));
+            history.push('/login');
+        })
+        .catch(() => dispatch({ type: GET_ERRORS, payload: { description: 'Error deleting your account' } }));
 };

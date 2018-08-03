@@ -325,10 +325,12 @@ describe("PUT /api/profile/password", () => {
             .end((err, response) => {
                 const { status, type, body } = response;
 
-                expect(status).toBe(401);
+                expect(status).toBe(400);
                 expect(type).toEqual("application/json");
 
-                expect(body.description).toEqual('Invalid Credentials');
+                expect(body.description).toEqual('Invalid Request Data');
+                expect(body).toHaveProperty('errors');
+                expect(body.errors).toHaveProperty('current_password');
 
                 done();
             });

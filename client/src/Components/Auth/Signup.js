@@ -70,22 +70,22 @@ class Signup extends Component {
                         <Form onSubmit={this.onSubmit}>
                             <FormGroup>
                                 <Label for="username">Username</Label>
-                                <Input type="text" name="username" onChange={this.onChange} invalid={errors.hasOwnProperty('username')} />
+                                <Input type="text" name="username" value={this.state.username} onChange={this.onChange} invalid={errors.hasOwnProperty('username')} />
                                 {errors.username?(<FormFeedback>{errors.username}</FormFeedback>):''}
                             </FormGroup>
                             <FormGroup>
                                 <Label for="email">Email</Label>
-                                <Input type="email" name="email" onChange={this.onChange} invalid={errors.hasOwnProperty('email')} />
+                                <Input type="email" name="email" value={this.state.email} onChange={this.onChange} invalid={errors.hasOwnProperty('email')} />
                                 {errors.email?(<FormFeedback>{errors.email}</FormFeedback>):''}
                             </FormGroup>  
                             <FormGroup>
                                 <Label for="password">Password</Label>
-                                <Input type="password" name="password" onChange={this.onChange} invalid={errors.hasOwnProperty('password')} />
+                                <Input type="password" name="password" value={this.state.password} onChange={this.onChange} invalid={errors.hasOwnProperty('password')} />
                                 {errors.password?(<FormFeedback>{errors.password}</FormFeedback>):''}
                             </FormGroup>   
                             <FormGroup>
                                 <Label for="password_confirm">Confirm Password</Label>
-                                <Input type="password" name="password_confirm" onChange={this.onChange} invalid={errors.hasOwnProperty('password_confirm')} />
+                                <Input type="password" name="password_confirm" value={this.state.password_confirm} onChange={this.onChange} invalid={errors.hasOwnProperty('password_confirm')} />
                                 {errors.password_confirm?(<FormFeedback>{errors.password_confirm}</FormFeedback>):''}
                             </FormGroup>  
 

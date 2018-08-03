@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { getCurrentProfile } from '../../../actions/profileActions';
+import { getCurrentProfile } from '../../actions/profileActions';
 import { Row, Col } from 'reactstrap';
-import Tile from '../../Global/Tile';
+import Tile from '../Global/Tile';
 import Moment from 'react-moment';
 
 class ProfileDetails extends Component {

@@ -80,7 +80,9 @@ router.put('/password', auth, validateRequest('update-password'), (req, res) => 
                         })
                         .catch(() => res.throwInternalServerError()); 
                 })
-                .catch(() => res.throwNotAuthorizedError('Invalid Credentials'));
+                .catch(() => res.throwBadRequestError('Invalid Request Data', {
+                    current_password: 'Your current password is not valid'
+                }));
         })
         .catch(err => res.throwInternalServerError());
 });

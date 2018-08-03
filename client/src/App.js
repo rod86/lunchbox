@@ -12,8 +12,8 @@ import About from './components/Pages/About';
 import SignUp from './components/Auth/Signup';
 import Login from './components/Auth/Login';
 import Logout from './components/Auth/Logout';
-import Dashboard from './components/Panel/Dashboard/Dashboard';
-import Profile from './components/Panel/Profile/Profile';
+import Dashboard from './components/Dashboard/Dashboard';
+import Profile from './components/Profile/Profile';
 
 import './assets/css/main.css';
 

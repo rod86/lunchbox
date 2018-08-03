@@ -73,13 +73,13 @@ class Login extends Component {
                             <FormGroup>    
                                 <InputGroup className="input-icon" size="lg">
                                     <i className="fas fa-user"></i>
-                                    <Input type="text" name="username" placeholder="Username or Email" onChange={this.onChange} />
+                                    <Input type="text" name="username" placeholder="Username or Email" onChange={this.onChange} value={this.state.username} />
                                 </InputGroup>
                             </FormGroup>
                             <FormGroup>    
                                 <InputGroup className="input-icon" size="lg">
                                     <i className="fas fa-lock"></i>
-                                    <Input type="password" name="password" placeholder="Password" onChange={this.onChange} />
+                                    <Input type="password" name="password" placeholder="Password" onChange={this.onChange} value={this.state.password} />
                                 </InputGroup>
                             </FormGroup>
                             <Button color="primary" size="lg" block>Log In</Button>

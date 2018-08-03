@@ -8,6 +8,7 @@ import Footer from './Components/Footer';
 import Offcanvas from './Components/Offcanvas';
 import AccountInfo from './Components/AccountInfo';
 import PanelNav from './Nav/PanelNav';
+import NotificationsContainer from '../Global/NotificationsContainer';
 
 class AdminLayout extends Component {
 
@@ -29,6 +30,7 @@ class AdminLayout extends Component {
     render() {
         return (
             <div id="admin-page" className="footer-bottom">
+                <NotificationsContainer />
                 <Header onToggleOffcanvas={this.toggleOffcanvas}>
                     {this.props.auth.isAuthenticated ? (<AccountInfo username={this.props.auth.user.username} />) : ''}  
                 </Header>
