@@ -1,10 +1,11 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { getCurrentProfile } from '../../actions/profileActions';
 import { Row, Col } from 'reactstrap';
 import Tile from '../Global/Tile';
 import Moment from 'react-moment';
+import Spinner from '../Global/Spinner';
 
 class ProfileDetails extends Component {
     static propTypes = {
@@ -15,14 +16,14 @@ class ProfileDetails extends Component {
         this.props.getCurrentProfile();
     }
 
-    render() {
+    renderProfile() {
         const { profile } = this.props.profile;
 
         return (
-            <Tile header="Profile">
+            <Fragment>
                 <Row>
                     <Col className="text-center mb-3">
-                        <span className="fa-stack fa-4x">
+                        <span className="fa-stack fa-3x">
                             <i className="fas fa-circle fa-stack-2x text-black-50"></i>
                             <i className="fas fa-user fa-stack-1x fa-inverse"></i>
                         </span>
@@ -42,6 +43,16 @@ class ProfileDetails extends Component {
                         </dl>
                     </Col>
                 </Row>
+            </Fragment>
+        );
+    }
+
+    render() {
+        const { profile, loading } = this.props.profile;
+
+        return (
+            <Tile header="Profile">
+                {(profile === null || loading) ? (<Spinner />):this.renderProfile()}
             </Tile>
         );
     }

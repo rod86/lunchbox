@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { GET_ERRORS, SET_CURRENT_USER, CLEAR_ERRORS, GET_PROFILE } from './types';
+import { GET_ERRORS, SET_CURRENT_USER, CLEAR_ERRORS, GET_PROFILE, PROFILE_LOADING } from './types';
 import { storeToken, decodeToken, removeTokenFromStorage } from '../libs/Token';
 import { success } from 'react-notification-system-redux';
 
@@ -31,7 +31,12 @@ export const setCurrentUser = user => ({
     payload: user
 });
 
+export const setProfileLoading = () => ({
+    type: PROFILE_LOADING
+});
+
 export const getCurrentProfile = () => dispatch => {
+    dispatch(setProfileLoading());
     axios.get('/api/profile')
         .then(res => dispatch({ type: GET_PROFILE, payload: res.data }))
         .catch(() => dispatch({ type: GET_PROFILE, payload: {} }));
