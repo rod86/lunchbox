@@ -3,6 +3,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
 const path = require('path');
+const expressStaticGzip = require("express-static-gzip")
 
 const app = express();
 
@@ -30,7 +31,10 @@ app.use('/api/stands', require('./routes/api/stands'));
 
 /** CLIENT **/
 if (app.get('isProduction')) {
-    const staticFiles = express.static(path.join(__dirname, '../client/build'));   
+    const staticDir = path.join(__dirname, '../client/build'),
+        staticFiles = express.static(staticDir);
+
+    app.use(expressStaticGzip(staticDir));
     app.use(staticFiles);
     app.use('/*', staticFiles);
 }

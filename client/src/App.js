@@ -15,7 +15,7 @@ import Logout from './components/Auth/Logout';
 import Dashboard from './components/Dashboard/Dashboard';
 import Profile from './components/Profile/Profile';
 
-import './assets/css/main.css';
+import './assets/styles/main.scss';
 
 // check token
 const token = getTokenFromStorage();

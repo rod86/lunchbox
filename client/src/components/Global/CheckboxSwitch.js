@@ -38,5 +38,3 @@ CheckboxSwitch.defaultProps = {
 };
 
 export default CheckboxSwitch;
-
-
