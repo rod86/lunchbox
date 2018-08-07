@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { GET_ERRORS, SET_CURRENT_USER, CLEAR_ERRORS, GET_PROFILE, PROFILE_LOADING } from './types';
-import { storeToken, decodeToken, removeTokenFromStorage } from '../libs/Token';
+import { storeToken, decodeToken, removeTokenFromStorage, setAuthToken } from '../libs/Token';
 import { success } from 'react-notification-system-redux';
 
 export const createUser = (user, history) => dispatch => {
@@ -15,6 +15,7 @@ export const loginUser = (user) => dispatch => {
             dispatch({ type: CLEAR_ERRORS });
             const { token } = res.data;
             storeToken(token);
+            setAuthToken(token);
             const user = decodeToken(token);
             dispatch(setCurrentUser(user));
         })
