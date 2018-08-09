@@ -14,6 +14,7 @@ import Login from './components/Auth/Login';
 import Logout from './components/Auth/Logout';
 import Dashboard from './components/Dashboard/Dashboard';
 import Profile from './components/Profile/Profile';
+import MyStands from './components/MyStands/MyStands';
 
 import './assets/styles/main.scss';
 
@@ -43,6 +44,7 @@ class App extends Component {
                         <Route exact path="/logout" component={Logout} />
                         <PrivateRoute exact path="/panel" component={Dashboard} />
                         <PrivateRoute path="/panel/profile" component={Profile} />
+                        <PrivateRoute path="/panel/stands" component={MyStands} />
                         <Route component={NotFound} />
                     </Switch>    
                 </Router>  

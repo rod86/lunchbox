@@ -27,3 +27,16 @@
         }
     }
 }
+
+// Table
+.table {
+    & .thead-primary th {
+        color: #fff;
+        background-color: $base-color;
+        border-color: $base-color;
+    }
+
+    &.vertical-align tbody td {
+        vertical-align: middle;
+    }
+}
