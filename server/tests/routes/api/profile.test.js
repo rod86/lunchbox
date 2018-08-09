@@ -60,6 +60,47 @@ describe("GET /api/profile", () => {
     });
 });
 
+describe("GET /api/profile/stands", () => {
+
+    beforeAll(async (done) => {
+        token = await loginAs('user1', 'password1234');
+        done();
+    });
+
+    it("Should return logged in user stands and user password should not be present", (done) => {
+        request(app)
+            .get('/api/profile/stands')
+            .set('Authorization', `Bearer ${token}`)
+            .end((err, response) => {
+                const { status, type, body } = response;
+
+                expect(status).toBe(200);
+                expect(type).toEqual("application/json");
+
+                expect(Array.isArray(body)).toBeTruthy();
+                expect(body.length).toBe(2);
+                expect(body[0].user).not.toHaveProperty('password');
+
+                done();
+            });
+    });
+
+    it("Should require authorization with access token", (done) => {
+        request(app)
+            .get('/api/profile/stands')
+            .end((err, response) => {
+                const { status, type, body } = response;
+
+                expect(status).toBe(401);
+                expect(type).toEqual("application/json");
+
+                expect(body.description).toEqual("Access Token Required");
+
+                done();
+            });
+    });
+});
+
 describe("POST /api/profile", () => {
     test("Should return created user with status 201", (done) => {
         const user = {

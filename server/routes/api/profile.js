@@ -2,14 +2,23 @@ const express = require('express');
 const router = express.Router();
 const mongoose = require('mongoose');
 const User = mongoose.model('User');
+const Stand = mongoose.model('Stand');
 const { generateHash, compareHash } = require('../../helpers/hash');
 const { validateRequest } = require('../../middleware/validation/validation');
 const { matchedData } = require('express-validator/filter');
 const auth = require('../../middleware/auth');
+const { findStandsByUser } = require('../../services/StandService');
 
 // Get logged in user
 router.get('/', auth, (req, res) => {
     res.json(req.user);
+});
+
+// Get user stands
+router.get('/stands', auth, (req, res) => {
+    findStandsByUser(req.user.id)
+        .then(stands => res.json(stands))
+        .catch(err => res.throwInternalServerError());
 });
 
 // Create profile
@@ -47,13 +56,18 @@ router.post('/', validateRequest('create-profile') ,(req, res) => {
 
 // delete profile
 router.delete('/', auth, (req, res) => {
-    User.findByIdAndRemove(req.user.id)
-        .then(user => {
-            if (!user) {
-                res.throwNotFoundError('User Not Found');
-            } else {
-                res.status(204).json();
-            }
+    const userId = req.user.id;
+
+    Stand.deleteMany({ user: userId })
+        .then(() => {
+            User.findByIdAndRemove(userId)
+                .then(user => {
+                    if (!user) {
+                        res.throwNotFoundError('User Not Found');
+                    } else {
+                        res.status(204).json();
+                    }
+                });
         })
         .catch(err => res.throwInternalServerError());
 });

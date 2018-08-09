@@ -45,4 +45,10 @@ const findStandsNearCoordinates = (lat, lng, distanceUnit, maxDistance) => {
     ]);
 };
 
-module.exports = { findStandsNearCoordinates };
+const findStandsByUser = userId => {
+    return Stand.find({ user: userId })
+        .sort('-created_at')
+        .populate('user', '-password');
+};
+
+module.exports = { findStandsNearCoordinates, findStandsByUser };
