@@ -19,7 +19,7 @@ module.exports = [
         .toFloat(),
     body('latitude')
         .exists().withMessage('This value is required')
-        .isLength({ min: 1 }).withMessage('This value is required')
+        .isFloat().withMessage('This value must be a float')
         .toFloat(),
     body('active')
         .optional().isBoolean().withMessage('Invalid value')

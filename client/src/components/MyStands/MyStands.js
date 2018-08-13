@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import AdminLayout from '../Layout/AdminLayout';
 import Tile from '../Global/Tile';
 import { Table, Button } from 'reactstrap';
@@ -82,9 +83,9 @@ class MyStands extends Component {
 
                 <Tile>
                     <div className="mb-3">
-                        <Button color="success">
+                        <Link to="/panel/stands/add" className="btn btn-success">
                             <i className="fas fa-plus mr-1"></i> Add Stand
-                        </Button>
+                        </Link>
                     </div>
                     
                     {stands.loading || !stands.stands ? <Spinner /> : this.renderStandsList()}

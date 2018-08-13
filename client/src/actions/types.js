@@ -11,6 +11,6 @@ export const PROFILE_LOADING = 'PROFILE_LOADING';
 export const STANDS_LOADING = 'STANDS_LOADING';
 export const GET_PROFILE_STANDS = 'GET_PROFILE_STANDS';
 // export const GET_STAND = 'GET_STAND';
-// export const ADD_STAND = 'ADD_STAND';
+export const ADD_STAND = 'ADD_STAND';
 // export const UPDATE_STAND = 'UPDATE_STAND';
 // export const DELETE_STAND = 'DELETE_STAND';
