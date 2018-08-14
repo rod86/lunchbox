@@ -2,10 +2,11 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Link, withRouter } from 'react-router-dom';
+import { Row, Col, Form, FormGroup, Label, Input, InputGroup, InputGroupAddon, FormText, FormFeedback, Button } from 'reactstrap';
 import AdminLayout from '../Layout/AdminLayout';
 import Tile from '../Global/Tile';
-import { Row, Col, Form, FormGroup, Label, Input, InputGroup, InputGroupAddon, FormText, FormFeedback, Button } from 'reactstrap';
 import CheckboxSwitch from '../Global/CheckboxSwitch';
+import CoordinatesWidget from '../Global/CoordinatesWidget';
 import { createStand } from '../../actions/standsActions';
 import { clearErrors } from '../../actions/errorActions'; 
 
@@ -96,25 +97,13 @@ class MyStands extends Component {
                             {errors.address?(<FormFeedback>{errors.address}</FormFeedback>):''}
                         </FormGroup>
 
-                        <FormGroup>
-                            <Label htmlFor="latitude">Coordinates</Label>
-                            <Row>
-                                <Col md={6}>
-                                    <InputGroup>
-                                        <InputGroupAddon addonType="prepend">Latitude</InputGroupAddon>
-                                        <Input type="text" name="latitude" value={this.state.latitude} onChange={this.onChange} invalid={errors.hasOwnProperty('latitude')}  />
-                                        {errors.latitude?(<FormFeedback>{errors.latitude}</FormFeedback>):''}
-                                    </InputGroup>
-                                </Col>
-                                <Col md={6}>
-                                    <InputGroup>
-                                        <InputGroupAddon addonType="prepend">Longitude</InputGroupAddon>
-                                        <Input type="text" name="longitude" value={this.state.longitude} onChange={this.onChange} invalid={errors.hasOwnProperty('longitude')}  />
-                                        {errors.longitude?(<FormFeedback>{errors.longitude}</FormFeedback>):''}
-                                    </InputGroup>
-                                </Col>
-                            </Row>    
-                        </FormGroup>
+                        <CoordinatesWidget
+                            latitude={this.state.latitude}
+                            longitude={this.state.longitude}
+                            onChange={this.onChange}
+                            latitudeError={errors.latitude ? errors.latitude : false}
+                            longitudeError={errors.longitude ? errors.longitude : false}
+                            />
 
                         <FormGroup>
                             <CheckboxSwitch id="active" onChange={this.onActiveChange} checked={this.state.active}>
