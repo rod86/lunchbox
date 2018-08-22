@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Link, withRouter } from 'react-router-dom';
@@ -6,16 +6,18 @@ import { Row, Col, Form, FormGroup, Label, Input, InputGroup, InputGroupAddon, F
 import AdminLayout from '../Layout/AdminLayout';
 import Tile from '../Global/Tile';
 import CheckboxSwitch from '../Global/CheckboxSwitch';
-import CoordinatesWidget from '../Global/CoordinatesWidget';
 import { createStand } from '../../actions/standsActions';
-import { clearErrors } from '../../actions/errorActions'; 
+import { clearErrors } from '../../actions/errorActions';
+import { getUserPosition } from '../../actions/geolocationActions';
 
-class MyStands extends Component {
+class AddStand extends Component {
 
     static propTypes = {
         error: PropTypes.object.isRequired,
         createStand: PropTypes.func.isRequired,
-        clearErrors: PropTypes.func.isRequired
+        clearErrors: PropTypes.func.isRequired,
+        geolocation: PropTypes.object.isRequired,
+        getUserPosition: PropTypes.func.isRequired,
     }
 
     constructor(props) {
@@ -34,11 +36,22 @@ class MyStands extends Component {
         this.onChange = this.onChange.bind(this);
         this.onActiveChange = this.onActiveChange.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
+        this.onGetLocationClick = this.onGetLocationClick.bind(this);
     }
 
     componentWillReceiveProps(nextProps) {
         if (nextProps.error) {
             this.setState({ error: nextProps.error });
+        }
+
+        if (nextProps.geolocation && nextProps.geolocation.coordinates) {
+            const { latitude, longitude } = nextProps.geolocation.coordinates;
+
+            if (!nextProps.geolocation.loading 
+                && latitude && latitude !== this.state.latitude
+                && longitude && longitude !== this.state.longitude ) {
+                this.setState({ latitude, longitude });
+            }  
         }
     }
 
@@ -53,6 +66,11 @@ class MyStands extends Component {
 
     onActiveChange(checked) {
         this.setState({ active: checked });
+    }
+
+    onGetLocationClick(e) {
+        e.preventDefault();
+        this.props.getUserPosition();
     }
 
     onSubmit(e) {
@@ -72,6 +90,7 @@ class MyStands extends Component {
     
     render() {
         const errors = this.props.error.errors;
+        const { geolocation } = this.props;
 
         return (
             <AdminLayout>
@@ -91,19 +110,35 @@ class MyStands extends Component {
                             {errors.description?(<FormFeedback>{errors.description}</FormFeedback>):''}
                         </FormGroup>
 
-                        <FormGroup>
-                            <Label htmlFor="address">Address</Label>
-                            <Input type="text" name="address" value={this.state.address} onChange={this.onChange} invalid={errors.hasOwnProperty('address')} />
-                            {errors.address?(<FormFeedback>{errors.address}</FormFeedback>):''}
-                        </FormGroup>
-
-                        <CoordinatesWidget
-                            latitude={this.state.latitude}
-                            longitude={this.state.longitude}
-                            onChange={this.onChange}
-                            latitudeError={errors.latitude ? errors.latitude : false}
-                            longitudeError={errors.longitude ? errors.longitude : false}
-                            />
+                       <Row>
+                            <Col md={6}>
+                                <FormGroup>
+                                    <Label htmlFor="address">Address</Label>
+                                    <Input type="text" name="address" value={this.state.address} onChange={this.onChange} invalid={errors.hasOwnProperty('address')} />
+                                    {errors.address?(<FormFeedback>{errors.address}</FormFeedback>):''}
+                                </FormGroup>
+                                <FormGroup className="coordinates-widget">
+                                    <Label htmlFor="latitude">Coordinates</Label>
+                                    <InputGroup className="mb-3">
+                                        <InputGroupAddon addonType="prepend">Latitude</InputGroupAddon>
+                                        <Input type="text" name="latitude" value={this.state.latitude} onChange={this.onChange} invalid={errors.hasOwnProperty('latitude')}  />
+                                        {errors.latitude?(<FormFeedback>{errors.latitude}</FormFeedback>):''}
+                                    </InputGroup>
+                                    <InputGroup className="mb-3">
+                                        <InputGroupAddon addonType="prepend">Longitude</InputGroupAddon>
+                                        <Input type="text" name="longitude" value={this.state.longitude} onChange={this.onChange} invalid={errors.hasOwnProperty('longitude')}  />
+                                        {errors.longitude?(<FormFeedback>{errors.longitude}</FormFeedback>):''}
+                                    </InputGroup>
+                                    <Button type="button" color="primary" onClick={this.onGetLocationClick} disabled={geolocation.loading}>
+                                        {geolocation.loading?(
+                                            <Fragment><i className="fas fa-spinner fa-pulse mr-1"></i> Finding location</Fragment>
+                                        ):(
+                                            <Fragment><i className="fas fa-map-marker mr-1"></i> Find my location</Fragment>
+                                        )}
+                                    </Button>
+                                </FormGroup>    
+                            </Col>
+                        </Row>
 
                         <FormGroup>
                             <CheckboxSwitch id="active" onChange={this.onActiveChange} checked={this.state.active}>
@@ -123,7 +158,8 @@ class MyStands extends Component {
 }
 
 const mapStateToProps = state => ({
-    error: state.error
+    error: state.error,
+    geolocation: state.geolocation
 });
 
-export default connect(mapStateToProps, { createStand, clearErrors })(withRouter(MyStands));
+export default connect(mapStateToProps, { createStand, clearErrors, getUserPosition })(withRouter(AddStand));
