@@ -9,6 +9,7 @@ import CheckboxSwitch from '../Global/CheckboxSwitch';
 import { createStand } from '../../actions/standsActions';
 import { clearErrors } from '../../actions/errorActions';
 import { getUserPosition } from '../../actions/geolocationActions';
+import CoordinatesPickerWidget from '../Global/CoordinatesPickerWidget';
 
 class AddStand extends Component {
 
@@ -30,13 +31,15 @@ class AddStand extends Component {
             latitude: '',
             longitude: '',
             active: false,
-            error: {}
+            error: {},
+            centerAtMarkerPosition: false
         };
 
         this.onChange = this.onChange.bind(this);
         this.onActiveChange = this.onActiveChange.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
         this.onGetLocationClick = this.onGetLocationClick.bind(this);
+        this.onMarkerPositionChange = this.onMarkerPositionChange.bind(this);
     }
 
     componentWillReceiveProps(nextProps) {
@@ -50,7 +53,7 @@ class AddStand extends Component {
             if (!nextProps.geolocation.loading 
                 && latitude && latitude !== this.state.latitude
                 && longitude && longitude !== this.state.longitude ) {
-                this.setState({ latitude, longitude });
+                this.setState({ latitude, longitude, centerAtMarkerPosition: true });
             }  
         }
     }
@@ -71,6 +74,10 @@ class AddStand extends Component {
     onGetLocationClick(e) {
         e.preventDefault();
         this.props.getUserPosition();
+    }
+
+    onMarkerPositionChange(latitude, longitude) {
+        this.setState({ latitude, longitude, centerAtMarkerPosition: false });
     }
 
     onSubmit(e) {
@@ -137,6 +144,14 @@ class AddStand extends Component {
                                         )}
                                     </Button>
                                 </FormGroup>    
+                            </Col>
+                            <Col md={6}>
+                                <CoordinatesPickerWidget 
+                                    latitude={this.state.latitude}
+                                    longitude={this.state.longitude}
+                                    onMarkerPositionChange={this.onMarkerPositionChange}
+                                    centerAtMarkerPosition={this.state.centerAtMarkerPosition}
+                                    />
                             </Col>
                         </Row>
 
