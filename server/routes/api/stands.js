@@ -5,7 +5,7 @@ const Stand = mongoose.model('Stand');
 const { validateRequest } = require('../../middleware/validation/validation');
 const { matchedData } = require('express-validator/filter');
 const auth = require('../../middleware/auth');
-const { findStandsNearCoordinates } = require('../../services/StandService');
+const { findStandsNearCoordinates, findStandById } = require('../../services/StandService');
 
 router.get('/', (req, res) => {
     Stand.find()
@@ -20,6 +20,18 @@ router.get('/search', validateRequest('stands-search'), (req, res) => {
 
     findStandsNearCoordinates(lat, lng, distanceUnit, maxDistance)
         .then(stands => res.json(stands))
+        .catch(() => res.throwInternalServerError());
+});
+
+router.get('/:id', (req, res) => {
+    findStandById(req.params.id)
+        .then(stand => {
+            if (!stand) {
+                return res.throwNotFoundError();
+            }
+
+            res.json(stand);
+        })
         .catch(() => res.throwInternalServerError());
 });
 

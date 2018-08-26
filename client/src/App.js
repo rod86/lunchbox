@@ -16,6 +16,7 @@ import Dashboard from './components/Dashboard/Dashboard';
 import Profile from './components/Profile/Profile';
 import MyStands from './components/MyStands/MyStands';
 import AddStand from './components/MyStands/AddStand';
+import EditStand from './components/MyStands/EditStand';
 
 import './assets/styles/main.scss';
 
@@ -46,6 +47,7 @@ class App extends Component {
                         <PrivateRoute exact path="/panel" component={Dashboard} />
                         <PrivateRoute exact path="/panel/profile" component={Profile} />
                         <PrivateRoute exact path="/panel/stands/add" component={AddStand} />
+                        <PrivateRoute exact path="/panel/stands/edit/:id" component={EditStand} />
                         <PrivateRoute exact path="/panel/stands" component={MyStands} />
                         <Route component={NotFound} />
                     </Switch>    

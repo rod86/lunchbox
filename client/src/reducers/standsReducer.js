@@ -1,4 +1,4 @@
-import { STANDS_LOADING, GET_PROFILE_STANDS } from '../actions/types';
+import { STANDS_LOADING, GET_PROFILE_STANDS, GET_STAND } from '../actions/types';
 
 const initialState = {
     stands: [],
@@ -18,6 +18,12 @@ export default (state = initialState, action) => {
                 loading: false,
                 stands: action.payload
             };
+        case GET_STAND:
+            return {
+                ...state,
+                loading: false,
+                stand: action.payload
+            };    
         default:
             return state;
     }

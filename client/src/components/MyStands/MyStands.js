@@ -60,9 +60,9 @@ class MyStands extends Component {
                                 <Moment format="DD/MM/YYYY HH:mm">{item.updated_at}</Moment>
                             </td>
                             <td>
-                                <Button color="link">
+                                <Link to={`/panel/stands/edit/${item._id}`} className="btn btn-link">
                                     <i className="fas fa-pencil-alt mr-1"></i> Edit
-                                </Button>
+                                </Link>
                                 <Button color="link" >
                                     <i className="fas fa-trash-alt mr-1"></i> Delete
                                 </Button>
@@ -75,7 +75,7 @@ class MyStands extends Component {
     }
     
     render() {
-        const { stands } = this.props;
+        const { stands, loading } = this.props.stands;
 
         return (
             <AdminLayout>
@@ -88,7 +88,7 @@ class MyStands extends Component {
                         </Link>
                     </div>
                     
-                    {stands.loading || !stands.stands ? <Spinner /> : this.renderStandsList()}
+                    {(loading || !stands) ? <Spinner /> : this.renderStandsList()}
                 </Tile>
             </AdminLayout>
         )

@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { GET_ERRORS, SET_CURRENT_USER, CLEAR_ERRORS, GET_PROFILE, PROFILE_LOADING } from './types';
 import { storeToken, decodeToken, removeTokenFromStorage, setAuthToken } from '../libs/Token';
-import { success } from 'react-notification-system-redux';
+import { success, removeAll } from 'react-notification-system-redux';
 
 export const createUser = (user, history) => dispatch => {
     axios.post('/api/profile', user)
@@ -47,6 +47,7 @@ export const updatePassword = data => dispatch => {
     axios.put('/api/profile/password', data)
         .then(() => {
             dispatch({ type: CLEAR_ERRORS });
+            dispatch(removeAll());
             dispatch(success({
                 message: 'Your password has been changed.',
                 autoDismiss: 5,

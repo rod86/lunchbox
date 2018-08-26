@@ -51,4 +51,9 @@ const findStandsByUser = userId => {
         .populate('user', '-password');
 };
 
-module.exports = { findStandsNearCoordinates, findStandsByUser };
+const findStandById = standId => {
+    return Stand.findOne({ _id: standId })
+        .populate('user', '-password');
+};
+
+module.exports = { findStandsNearCoordinates, findStandsByUser, findStandById };
