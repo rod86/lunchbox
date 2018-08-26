@@ -47,7 +47,6 @@ export const updatePassword = data => dispatch => {
     axios.put('/api/profile/password', data)
         .then(() => {
             dispatch({ type: CLEAR_ERRORS });
-            dispatch(removeAll());
             dispatch(success({
                 message: 'Your password has been changed.',
                 autoDismiss: 5,

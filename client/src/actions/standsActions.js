@@ -1,6 +1,6 @@
 import axios from 'axios';
-import { GET_PROFILE_STANDS, STANDS_LOADING, GET_STAND, GET_ERRORS, CLEAR_ERRORS } from './types';
-import { success, removeAll } from 'react-notification-system-redux';
+import { GET_PROFILE_STANDS, STANDS_LOADING, GET_STAND, DELETE_STAND, GET_ERRORS, CLEAR_ERRORS } from './types';
+import { success, error, removeAll } from 'react-notification-system-redux';
 
 export const setStandsLoading = () => ({
     type: STANDS_LOADING
@@ -25,7 +25,6 @@ export const createStand = (stand, history) => dispatch => {
         .then(() => {
             dispatch({ type: CLEAR_ERRORS });
             history.push('/panel/stands');
-            dispatch(removeAll());
             dispatch(success({
                 message: 'Your stand was created successfully.',
                 autoDismiss: 5,
@@ -40,7 +39,6 @@ export const updateStand = (id, stand, history) => dispatch => {
         .then(() => {
             dispatch({ type: CLEAR_ERRORS });
             history.push('/panel/stands');
-            dispatch(removeAll());
             dispatch(success({
                 message: 'Your stand was updated successfully.',
                 autoDismiss: 5,
@@ -48,4 +46,23 @@ export const updateStand = (id, stand, history) => dispatch => {
             }));
         })
         .catch(err => dispatch({ type: GET_ERRORS, payload: { errors: err.response.data.errors } }));
+};
+
+export const deleteStand = id => dispatch => {
+    axios.delete(`/api/stands/${id}`)
+        .then(() => {
+            dispatch({ type: DELETE_STAND, payload: id })
+            dispatch(success({
+                message: 'Your stand was deleted successfully.',
+                autoDismiss: 5,
+                position: 'tr'
+            }));
+        })
+        .catch(err => {
+            dispatch(error({
+                message: 'An error ocurred while deleting the stand.',
+                autoDismiss: 5,
+                position: 'tr'
+            }));
+        });
 };

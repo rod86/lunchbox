@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import AdminLayout from '../Layout/AdminLayout';
 import Tile from '../Global/Tile';
 import { Table, Button } from 'reactstrap';
-import { getProfileStands } from '../../actions/standsActions';
+import { getProfileStands, deleteStand } from '../../actions/standsActions';
 import Spinner from '../Global/Spinner';
 import Moment from 'react-moment';
 import classNames from 'classnames';
@@ -14,11 +14,24 @@ class MyStands extends Component {
 
     static propTypes = {
         stands: PropTypes.object.isRequired,
-        getProfileStands: PropTypes.func.isRequired
+        getProfileStands: PropTypes.func.isRequired,
+        deleteStand: PropTypes.func.isRequired
+    }
+
+    constructor(props) {
+        super(props);
+
+        this.onDeleteStand = this.onDeleteStand.bind(this);
     }
 
     componentDidMount() {
         this.props.getProfileStands();
+    }
+
+    onDeleteStand(id) {
+        if (window.confirm('Are you sure to delete this stand?')) {
+            this.props.deleteStand(id);
+        }
     }
 
     renderStandsList() {
@@ -63,7 +76,7 @@ class MyStands extends Component {
                                 <Link to={`/panel/stands/edit/${item._id}`} className="btn btn-link">
                                     <i className="fas fa-pencil-alt mr-1"></i> Edit
                                 </Link>
-                                <Button color="link" >
+                                <Button color="link" onClick={() => this.onDeleteStand(item._id)}>
                                     <i className="fas fa-trash-alt mr-1"></i> Delete
                                 </Button>
                             </td>
@@ -99,4 +112,4 @@ const mapStateToProps = state => ({
     stands: state.stands
 });
 
-export default connect(mapStateToProps, { getProfileStands })(MyStands);
+export default connect(mapStateToProps, { getProfileStands, deleteStand })(MyStands);

@@ -1,4 +1,4 @@
-import { STANDS_LOADING, GET_PROFILE_STANDS, GET_STAND } from '../actions/types';
+import { STANDS_LOADING, GET_PROFILE_STANDS, GET_STAND, DELETE_STAND } from '../actions/types';
 
 const initialState = {
     stands: [],
@@ -24,6 +24,11 @@ export default (state = initialState, action) => {
                 loading: false,
                 stand: action.payload
             };    
+        case DELETE_STAND:
+            return {
+                ...state,
+                stands: state.stands.filter(stand => stand._id !== action.payload)
+            }
         default:
             return state;
     }
