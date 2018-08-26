@@ -5,6 +5,7 @@ import { withRouter } from 'react-router-dom';
 import AdminLayout from '../Layout/AdminLayout';
 import Tile from '../Global/Tile';
 import Spinner from '../Global/Spinner';
+import AdminErrorMessage from '../Global/AdminErrorMessage';
 import StandForm from './StandForm';
 import { getStand, updateStand } from '../../actions/standsActions';
 
@@ -13,7 +14,8 @@ class EditStand extends Component {
     static propTypes = {
         getStand: PropTypes.func.isRequired,
         updateStand: PropTypes.func.isRequired,
-        stands: PropTypes.object.isRequired
+        stands: PropTypes.object.isRequired,
+        auth: PropTypes.object.isRequired
     }
 
     constructor(props) {
@@ -32,6 +34,14 @@ class EditStand extends Component {
     
     render() {
         const { stand, loading } = this.props.stands;
+
+        if (!loading && stand && this.props.auth.user.id != stand.user._id) {
+            return (
+                <AdminErrorMessage>
+                    You are not authorized to view this page
+                </AdminErrorMessage>
+            );
+        }
 
         return (
             <AdminLayout>
@@ -57,7 +67,8 @@ class EditStand extends Component {
 }
 
 const mapStateToProps = state => ({
-    stands: state.stands
+    stands: state.stands,
+    auth: state.auth
 });
 
 

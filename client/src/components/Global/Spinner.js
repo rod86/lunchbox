@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default () => {
+const Spinner = () => {
     return (
         <div className="fa-2x text-secondary text-center py-3">
             <i className="fas fa-spinner fa-pulse"></i>
@@ -8,5 +8,4 @@ export default () => {
     )
 }
 
-
-
+export default Spinner;

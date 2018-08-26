@@ -19,13 +19,29 @@ class CoordinatesPickerWidget extends Component {
     constructor(props) {
         super(props);
 
-        this.state = {
+        this.initialState = {
             centerLatitude: config.latitude,
             centerLongitude: config.longitude,
             latitude: null,
             longitude: null,
             centerAtMarkerPosition: false
         };
+
+        this.state = this.initialState;
+    }
+
+    componentDidMount() {
+        const { latitude, longitude } = this.props;
+
+        if (latitude && longitude) {
+            this.setState({ 
+                latitude,
+                longitude,
+                centerLatitude: latitude, 
+                centerLongitude: longitude, 
+                centerAtMarkerPosition: true 
+            });
+        }
     }
 
     componentWillReceiveProps(nextProps) {
@@ -37,6 +53,8 @@ class CoordinatesPickerWidget extends Component {
             }
 
             this.setState({ latitude, longitude, centerAtMarkerPosition });
+        } else {
+            this.setState(this.initialState);
         }
     }
     

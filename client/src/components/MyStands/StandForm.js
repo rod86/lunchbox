@@ -44,6 +44,7 @@ class StandForm extends Component {
         };
 
         this.onChange = this.onChange.bind(this);
+        this.onCoordinateChange = this.onCoordinateChange.bind(this);
         this.onActiveChange = this.onActiveChange.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
         this.onGetLocationClick = this.onGetLocationClick.bind(this);
@@ -82,6 +83,17 @@ class StandForm extends Component {
         }});
     }
 
+    onCoordinateChange(e) {
+        e.preventDefault();
+        this.setState({
+            formValues: { 
+                ...this.state.formValues,
+                [e.target.name]: e.target.value ? parseFloat(e.target.value) : ''
+            },
+            centerAtMarkerPosition: true
+        });
+    }
+
     onActiveChange(checked) {
         this.setState({ formValues: { 
             ...this.state.formValues,
@@ -109,7 +121,7 @@ class StandForm extends Component {
     render() {
         const errors = this.props.error.errors,
             { geolocation } = this.props,
-            { formValues } = this.state;
+            { formValues, centerAtMarkerPosition } = this.state;
 
         return (
             <Form onSubmit={this.onSubmit}>
@@ -136,12 +148,12 @@ class StandForm extends Component {
                             <Label htmlFor="latitude">Coordinates</Label>
                             <InputGroup className="mb-3">
                                 <InputGroupAddon addonType="prepend">Latitude</InputGroupAddon>
-                                <Input type="text" name="latitude" value={formValues.latitude} onChange={this.onChange} invalid={errors.hasOwnProperty('latitude')}  />
+                                <Input type="text" name="latitude" value={formValues.latitude} onChange={this.onCoordinateChange} invalid={errors.hasOwnProperty('latitude')}  />
                                 {errors.latitude?(<FormFeedback>{errors.latitude}</FormFeedback>):''}
                             </InputGroup>
                             <InputGroup className="mb-3">
                                 <InputGroupAddon addonType="prepend">Longitude</InputGroupAddon>
-                                <Input type="text" name="longitude" value={formValues.longitude} onChange={this.onChange} invalid={errors.hasOwnProperty('longitude')}  />
+                                <Input type="text" name="longitude" value={formValues.longitude} onChange={this.onCoordinateChange} invalid={errors.hasOwnProperty('longitude')}  />
                                 {errors.longitude?(<FormFeedback>{errors.longitude}</FormFeedback>):''}
                             </InputGroup>
                             <Button type="button" color="primary" onClick={this.onGetLocationClick} disabled={geolocation.loading}>
@@ -158,7 +170,7 @@ class StandForm extends Component {
                             latitude={formValues.latitude}
                             longitude={formValues.longitude}
                             onMarkerPositionChange={this.onMarkerPositionChange}
-                            centerAtMarkerPosition={this.state.centerAtMarkerPosition}
+                            centerAtMarkerPosition={centerAtMarkerPosition}
                             />
                     </Col>
                 </Row>
