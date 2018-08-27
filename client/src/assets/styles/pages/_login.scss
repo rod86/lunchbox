@@ -21,20 +21,18 @@
 
     & > .container {
         & > .content-center {
-            margin: 2rem 0;
+            margin: 2rem 0 3rem 0;
         }
     }
 
     @include media-breakpoint-up(md) {
         & > .container {
             display: flex;
-            height: 80vh;
             align-items: center;
             justify-content: center;
 
             & > .content-center {
                 width: 50%;
-                margin-top: 0;
             }
         }
     }

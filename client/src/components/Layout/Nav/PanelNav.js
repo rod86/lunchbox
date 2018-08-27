@@ -12,7 +12,7 @@ export default () => {
             </NavItem> 
             <NavItem>
                 <NavLink to="/panel/stands" className="nav-link">
-                    <i className="fas fa-map-marker"></i> Stands
+                    <i className="fas fa-map-marker"></i> My Stands
                 </NavLink>
             </NavItem> 
             <NavItem>
