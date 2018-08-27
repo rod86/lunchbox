@@ -8,7 +8,7 @@ import Tile from '../Global/Tile';
 import CheckboxSwitch from '../Global/CheckboxSwitch';
 import { createStand } from '../../actions/standsActions';
 import { clearErrors } from '../../actions/errorActions';
-import { getUserPosition } from '../../actions/geolocationActions';
+import { getUserPosition, getAddressPosition } from '../../actions/geolocationActions';
 import CoordinatesPickerWidget from '../Global/CoordinatesPickerWidget';
 
 class StandForm extends Component {
@@ -17,8 +17,10 @@ class StandForm extends Component {
         error: PropTypes.object.isRequired,
         createStand: PropTypes.func.isRequired,
         clearErrors: PropTypes.func.isRequired,
-        geolocation: PropTypes.object.isRequired,
+        userPosition: PropTypes.object.isRequired,
+        addressPosition: PropTypes.object.isRequired,
         getUserPosition: PropTypes.func.isRequired,
+        getAddressPosition: PropTypes.func.isRequired,
         onSubmit: PropTypes.func.isRequired,
         formValues: PropTypes.oneOfType([PropTypes.object, PropTypes.bool])
     }
@@ -48,6 +50,7 @@ class StandForm extends Component {
         this.onActiveChange = this.onActiveChange.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
         this.onGetLocationClick = this.onGetLocationClick.bind(this);
+        this.onLocateAddressClick = this.onLocateAddressClick.bind(this);
         this.onMarkerPositionChange = this.onMarkerPositionChange.bind(this);
     }
 
@@ -56,18 +59,24 @@ class StandForm extends Component {
             this.setState({ error: nextProps.error });
         }
 
-        if (nextProps.geolocation && nextProps.geolocation.coordinates) {
-            const { latitude, longitude } = nextProps.geolocation.coordinates;
+        if (nextProps.userPosition && !nextProps.userPosition.loading) {
+            const { latitude, longitude } = nextProps.userPosition;
+            this.updateCoordinates(longitude, latitude);
+        }
 
-            if (!nextProps.geolocation.loading 
-                && latitude && latitude !== this.state.latitude
-                && longitude && longitude !== this.state.longitude ) {
-                this.setState({ latitude, longitude, centerAtMarkerPosition: true });
-                this.setState({ 
-                    centerAtMarkerPosition: true,
-                    formValues: { ...this.state.formValues, latitude, longitude}
-                });
-            }  
+        if (nextProps.addressPosition && !nextProps.addressPosition.loading) {
+            const { latitude, longitude } = nextProps.addressPosition;
+            this.updateCoordinates(longitude, latitude);
+        }
+    }
+
+    updateCoordinates(longitude, latitude) {
+        if (latitude && latitude !== this.state.latitude
+            && longitude && longitude !== this.state.longitude ) {
+            this.setState({ 
+                centerAtMarkerPosition: true,
+                formValues: { ...this.state.formValues, latitude, longitude}
+            });  
         }
     }
 
@@ -106,6 +115,16 @@ class StandForm extends Component {
         this.props.getUserPosition();
     }
 
+    onLocateAddressClick(e) {
+        e.preventDefault();
+        
+        const { address } = this.state.formValues;
+        
+        if (address) {
+            this.props.getAddressPosition(address);
+        }
+    }
+
     onMarkerPositionChange(latitude, longitude) {
         this.setState({ 
             centerAtMarkerPosition: false,
@@ -120,7 +139,7 @@ class StandForm extends Component {
     
     render() {
         const errors = this.props.error.errors,
-            { geolocation } = this.props,
+            { userPosition, addressPosition } = this.props,
             { formValues, centerAtMarkerPosition } = this.state;
 
         return (
@@ -156,13 +175,26 @@ class StandForm extends Component {
                                 <Input type="text" name="longitude" value={formValues.longitude} onChange={this.onCoordinateChange} invalid={errors.hasOwnProperty('longitude')}  />
                                 {errors.longitude?(<FormFeedback>{errors.longitude}</FormFeedback>):''}
                             </InputGroup>
-                            <Button type="button" color="primary" onClick={this.onGetLocationClick} disabled={geolocation.loading}>
-                                {geolocation.loading?(
-                                    <Fragment><i className="fas fa-spinner fa-pulse mr-1"></i> Finding location</Fragment>
-                                ):(
-                                    <Fragment><i className="fas fa-map-marker mr-1"></i> Find my location</Fragment>
-                                )}
-                            </Button>
+                            <Row>
+                                <Col md={6}>
+                                    <Button type="button" color="primary" block onClick={this.onGetLocationClick} disabled={userPosition.loading}>
+                                        {userPosition.loading ? (
+                                            <Fragment><i className="fas fa-spinner fa-pulse mr-1"></i> Finding location</Fragment>
+                                        ):(
+                                            <Fragment><i className="fas fa-location-arrow mr-1"></i> Find my location</Fragment>
+                                        )}
+                                    </Button>
+                                </Col>
+                                <Col md={6}>
+                                    <Button type="button" color="primary" block onClick={this.onLocateAddressClick} disabled={addressPosition.loading || !this.state.formValues.address}>
+                                        {addressPosition.loading ? (
+                                            <Fragment><i className="fas fa-spinner fa-pulse mr-1"></i> Locating address</Fragment>
+                                        ):(
+                                            <Fragment><i className="fas fa-building mr-1"></i> Locate address</Fragment>
+                                        )}
+                                    </Button>
+                                </Col>
+                            </Row>
                         </FormGroup>    
                     </Col>
                     <Col md={6}>
@@ -192,7 +224,8 @@ class StandForm extends Component {
 
 const mapStateToProps = state => ({
     error: state.error,
-    geolocation: state.geolocation
+    userPosition: state.geolocation.userPosition,
+    addressPosition: state.geolocation.addressPosition
 });
 
-export default connect(mapStateToProps, { createStand, clearErrors, getUserPosition })(StandForm);
+export default connect(mapStateToProps, { createStand, clearErrors, getUserPosition, getAddressPosition })(StandForm);
