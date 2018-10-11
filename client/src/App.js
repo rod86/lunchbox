@@ -8,6 +8,7 @@ import { decodeToken, getTokenFromStorage, setAuthToken, isExpiredToken } from '
 import PrivateRoute from './components/Global/PrivateRoute';
 import NotFound from './components/Pages/NotFound';
 import Home from './components/Pages/Home';
+import Search from './components/Search/Search';
 import About from './components/Pages/About';
 import SignUp from './components/Auth/Signup';
 import Login from './components/Auth/Login';
@@ -40,6 +41,7 @@ class App extends Component {
                 <Router>
                     <Switch>
                         <Route exact path="/" component={Home} />
+                        <Route exact path="/search" component={Search} />
                         <Route exact path="/about" component={About} />
                         <Route exact path="/signup" component={SignUp} />
                         <Route exact path="/login" component={Login} />
