@@ -4,7 +4,8 @@ const initialState = {
     userPosition: {
         loading: false,
         latitude: null,
-        longitude: null
+        longitude: null,
+        address: null
     },
     addressPosition: {
         loading: false,
@@ -28,7 +29,8 @@ export default (state=initialState, action) => {
                 userPosition: {
                     loading: false,
                     latitude: action.payload.latitude || null,
-                    longitude: action.payload.longitude || null
+                    longitude: action.payload.longitude || null,
+                    address: action.payload.address || null
                 }
             };
         case ADDRESS_POSITION_LOADING:
