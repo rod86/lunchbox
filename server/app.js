@@ -28,6 +28,7 @@ app.use('/api/users', require('./routes/api/users'));
 app.use('/api/profile', require('./routes/api/profile'));
 app.use('/api/auth', require('./routes/api/auth'));
 app.use('/api/stands', require('./routes/api/stands'));
+app.use('/api/geolocation', require('./routes/api/geolocation'));
 
 /** CLIENT **/
 if (app.get('isProduction')) {

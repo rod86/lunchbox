@@ -5,6 +5,7 @@ import authReducer from './authReducer';
 import profileReducer from './profileReducer';
 import standsReducer from './standsReducer';
 import geolocationReducer from './geolocationReducer';
+import searchReducer from './searchReducer';
 
 export default combineReducers({
     auth: authReducer,
@@ -12,5 +13,6 @@ export default combineReducers({
     profile: profileReducer,
     stands: standsReducer,
     geolocation: geolocationReducer,
+    search: searchReducer,
     notifications
 });
