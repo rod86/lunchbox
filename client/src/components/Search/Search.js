@@ -10,6 +10,7 @@ import SearchFilter from './SearchFilter';
 import SearchTabs from './SearchTabs';
 import SearchList from './SearchList';
 import SearchMap from './SearchMap';
+import Spinner from '../Global/Spinner';
 
 
 class Search extends Component {
@@ -74,7 +75,7 @@ class Search extends Component {
 
     render() {
         const { activeTab } = this.state,
-            { search } = this.props;
+            { loading, results } = this.props.search;
 
         return (
             <Layout id="search-page">
@@ -96,16 +97,27 @@ class Search extends Component {
                                 onChangeTab={this.onChangeTab} />
                         </Col>
                     </Row>
-                    <Row noGutters className="search-results">
-                        <Col md={4} className={classnames({ active: activeTab === 'list' })}>
-                            <SearchList 
-                                stands={(!search.loading && search.results.length) ? search.results : []}
-                                />
-                        </Col>
-                        <Col md={8} className={classnames({ active: activeTab === 'map' })}>
-                            <SearchMap />
-                        </Col>
-                    </Row>
+
+                    {loading ? (
+                        <Row>
+                            <Col>
+                                <Spinner />
+                            </Col>
+                        </Row>
+                    ) : (
+                        <Row noGutters className="search-results">
+                            <Col md={4} className={classnames({ active: activeTab === 'list' })}>
+                                <SearchList 
+                                    stands={results.length ? results : []}
+                                    />
+                            </Col>
+                            <Col md={8} className={classnames({ active: activeTab === 'map' })}>
+                                <SearchMap 
+                                    stands={results.length ? results : []}
+                                    />
+                            </Col>
+                        </Row>
+                    )}
                 </Container>
             </Layout> 
         )

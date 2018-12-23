@@ -16,7 +16,11 @@ const SearchList = ({ stands }) => {
     return (
         <div className="search-results-list">
             <div className="list-group">
-                {stands.map(renderItem)}
+                {stands.length ? (
+                    stands.map(renderItem)
+                ) : (
+                    <p className="lead text-muted text-center py-5">No results found.</p>
+                )}
             </div>
         </div>
     )

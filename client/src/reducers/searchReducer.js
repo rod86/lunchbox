@@ -1,8 +1,8 @@
 import { SEARCH_LOADING, SEARCH_GET_RESULTS } from '../actions/types';
 
 const initialState = {
-    results: [],
-    loading: false
+    loading: false,
+    results: []
 };
 
 export default (state = initialState, action) => {

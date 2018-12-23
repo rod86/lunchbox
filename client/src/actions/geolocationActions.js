@@ -41,7 +41,6 @@ export const getUserPositionWithAddress = () => dispatch => {
             dispatch({ type: GET_USER_POSITION, payload: position });
         })
         .catch(err => {
-            console.log(err);
             dispatch(setUserPositionLoading(false));
             dispatch(error({
                 message: err,
